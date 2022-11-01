@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:12.2
+    hostname: contabilidade-postgres
+    container_name: contabilidade-postgres
+    environment:
+      POSTGRES_DB: contabilidade-postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    ports:
+      - "5433:5432"
+    networks:
+      - contabilidade-development-network
+    volumes:
+      - ./database:/var/lib/contabilidade-postgresql        
+      
+  pgadmin:
+    image: dpage/pgadmin4
+    hostname: contabilidade-pgadmin4
+    container_name: contabilidade-pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "contabilidade@email.com"
+      PGADMIN_DEFAULT_PASSWORD: "1234"
+    ports:
+      - "9091:80"
+    depends_on:
+      - postgres
+    networks:
+      - contabilidade-development-network
+  
+networks: 
+  contabilidade-development-network:
+    driver: bridge
+    
+    
