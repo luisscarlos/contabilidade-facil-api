@@ -13,3 +13,9 @@ spring:
 server:
   error:
     include-stacktrace: never
+
+spring-doc:
+  swagger-ui:
+    path: /
+    tagsSorter: alpha
+    operationsSorter: method

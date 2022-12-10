@@ -1,4 +1,4 @@
-# Trabalho para a disciplina Projeto de Sistemas da Informação - Instituto Federal do Ceará
+# Trabalho para a disciplina Projeto de Sistemas da Informação - Instituto Federal do Ceará.
 
 # Contabilidade Fácil
 ----------------------Inserir descrição do projeto----------------------
