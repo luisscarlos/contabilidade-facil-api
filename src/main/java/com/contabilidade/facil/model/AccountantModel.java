@@ -1,18 +1,19 @@
 package com.contabilidade.facil.model;
 
-import com.contabilidade.facil.entity.Customers;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
-public class ServiceModel {
+public class AccountantModel {
 
     @NotNull
+    @NotBlank
     private String name;
 
-    private List<Customers> customers;
+    private Set<Long> servicesId;
 }

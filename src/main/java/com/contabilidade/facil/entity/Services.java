@@ -1,18 +1,21 @@
 package com.contabilidade.facil.entity;
 
-import com.contabilidade.facil.model.ServiceModel;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
 @Table(name = "services")
 @NoArgsConstructor
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 public class Services {
 
     @Id
@@ -28,8 +31,15 @@ public class Services {
     @Column
     private String name;
 
-    public Services (ServiceModel serviceModel) {
-        this.name = serviceModel.getName();
+    @ManyToMany(mappedBy = "services")
+    @JsonBackReference
+    List<Customers> customers;
+
+    @ManyToMany(mappedBy = "services")
+    @JsonBackReference
+    List<Accountant> accountants;
+    public Services (String name) {
+        this.name = name;
     }
 
 }

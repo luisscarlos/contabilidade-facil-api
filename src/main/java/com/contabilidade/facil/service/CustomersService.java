@@ -2,6 +2,7 @@ package com.contabilidade.facil.service;
 
 import com.contabilidade.facil.entity.Customers;
 import com.contabilidade.facil.entity.Services;
+import com.contabilidade.facil.exception.NotFoundException;
 import com.contabilidade.facil.model.CustomerModel;
 import com.contabilidade.facil.repository.CustomersRepository;
 import com.contabilidade.facil.repository.ServiceRepository;
@@ -27,7 +28,8 @@ public class CustomersService {
     }
 
     public Customers createCustomer(CustomerModel model) {
-        Customers customers = new Customers(model);
+        List<Services> searchService = serviceRepository.findAllById(model.getServices());
+        Customers customers = new Customers(model.getName(), searchService);
         customersRepository.save(customers);
         return customers;
     }
@@ -35,17 +37,19 @@ public class CustomersService {
     public Customers assingServices(Long id, Set<Long> services) {
         Optional<Customers> searchCustomer = customersRepository.findById(id);
 
-
-        searchCustomer.ifPresent(customer -> {
-
+        searchCustomer.ifPresentOrElse(customer -> {
             List<Services> searchService = serviceRepository.findAllById(services);
             if (!searchService.isEmpty()) {
                 customer.getServices().addAll(Set.copyOf(searchService));
             }
-
             customersRepository.save(customer);
+        }, () -> {
+            throw new NotFoundException("Cliente não encontrado");
         });
         return searchCustomer.get();
     }
 
+    public Customers findById(Long id) {
+        return customersRepository.findById(id).orElseThrow(() -> new NotFoundException("Cliente não localizado"));
+    }
 }

@@ -17,11 +17,8 @@ public class SwaggerDocumentationConfig {
                         .description("IFCE - Trabalho da disciplina Projeto de Sistemas da Informação.\n\n" +
                                 "Professor:\n" +
                                 "- Carlos Hairon Ribeiro Goncalves\n\n" +
-                                "Alunos:\n" +
-                                "- Luis Carlos\n" +
-                                "- Raphael Otaviano\n" +
-                                "- Luiz Henrique")
-                        .version("v0.0.1")
-                        .license(new License().name("Apache 2.0").url("http://www.apache.org/licenses/LICENSE-2.0.html")));
+                                "Aluno:\n" +
+                                "- Luis Carlos Santos Filho\n")
+                        .version("v0.0.1"));
     }
 }

@@ -2,6 +2,7 @@ package com.contabilidade.facil.controller;
 
 import com.contabilidade.facil.entity.Customers;
 import com.contabilidade.facil.entity.Services;
+import com.contabilidade.facil.exception.NotFoundException;
 import com.contabilidade.facil.model.CustomerModel;
 import com.contabilidade.facil.service.CustomersService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,9 +36,23 @@ public class CustomersController {
         return new ResponseEntity<>(customersService.listAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    @Operation(summary = "Buscar cliente por ID")
+    public ResponseEntity<Customers> getCustomer(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(customersService.findById(id), HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PutMapping("/{id}")
     @Operation(summary = "Atribui um ou mais serviços para um cliente")
     public ResponseEntity<Customers> assingServices(@PathVariable Long id, @RequestBody  Set<Long> services) {
-        return new ResponseEntity<>(customersService.assingServices(id, services), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(customersService.assingServices(id, services), HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 }

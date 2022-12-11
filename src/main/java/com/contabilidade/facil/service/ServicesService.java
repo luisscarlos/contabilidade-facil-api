@@ -1,6 +1,6 @@
 package com.contabilidade.facil.service;
 
-import com.contabilidade.facil.model.ServiceModel;
+import com.contabilidade.facil.exception.NotFoundException;
 import com.contabilidade.facil.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +20,13 @@ public class ServicesService {
         return serviceRepository.findAll();
     }
 
-    public Services createService(ServiceModel serviceModel) {
-        Services service = new Services(serviceModel);
+    public Services createService(String name) {
+        Services service = new Services(name);
         serviceRepository.save(service);
         return service;
+    }
+
+    public Services findById(Long id) {
+        return serviceRepository.findById(id).orElseThrow(() -> new NotFoundException("Serviço não localizado"));
     }
 }

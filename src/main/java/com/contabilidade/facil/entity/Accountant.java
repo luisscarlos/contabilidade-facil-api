@@ -1,6 +1,7 @@
 package com.contabilidade.facil.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,6 +9,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -28,6 +31,29 @@ public class Accountant {
     private String name;
 
     @Column
-    private BigInteger ticket;
+    private Long ticket;
 
+    @ManyToMany()
+    @JoinTable(
+            name = "accountant_services",
+            joinColumns = @JoinColumn(name = "accountant_id"),
+            inverseJoinColumns = @JoinColumn(name = "service_id")
+    )
+    @JsonManagedReference
+    private Set<Services> services;
+
+//    @ManyToMany()
+//    @JoinTable(
+//            name = "accountant_customers",
+//            joinColumns = @JoinColumn(name = "accountant_id"),
+//            inverseJoinColumns = @JoinColumn(name = "customers_id")
+//    )
+//    @JsonManagedReference
+//    private List<Customers> customers;
+
+    public Accountant(String name, List<Services> searchService) {
+        this.name = name;
+        this.ticket = 0L;
+        this.services = Set.copyOf(searchService);
+    }
 }
