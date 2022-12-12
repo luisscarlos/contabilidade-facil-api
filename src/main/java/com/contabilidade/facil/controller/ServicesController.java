@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/services")
-@Tag(name = "2 - Gerenciamento de serviços", description = "Permite a manipulação de serviços no banco de dados")
+@Tag(name = "1 - Gerenciamento de serviços", description = "Permite a manipulação de serviços no banco de dados")
 public class ServicesController {
 
     @Autowired

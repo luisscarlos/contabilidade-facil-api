@@ -18,7 +18,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/customers")
-@Tag(name = "1 - Gerenciamento de clientes", description = "Permite a manipulação de clientes no banco de dados.")
+@Tag(name = "2 - Gerenciamento de clientes", description = "Permite a manipulação de clientes no banco de dados.")
 public class CustomersController {
 
     @Autowired

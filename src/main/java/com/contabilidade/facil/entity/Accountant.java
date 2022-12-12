@@ -53,7 +53,7 @@ public class Accountant {
 
     public Accountant(String name, List<Services> searchService) {
         this.name = name;
-        this.ticket = 0L;
+        this.ticket = 5L;
         this.services = Set.copyOf(searchService);
     }
 }
